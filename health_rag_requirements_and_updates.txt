@@ -1,0 +1,155 @@
+
+RAG-BASED HEALTH REPORT ANALYZER
+PROJECT REQUIREMENTS & UPDATES
+================================
+
+1. CORE REQUIREMENTS
+-------------------
+- RAG (Retrieval Augmented Generation) based document analysis
+- Strictly document-grounded answers (no hallucinations)
+- Health report PDF upload support
+- Personalized dashboard per document
+- Chat interface to query the document
+- Multilingual input support (Hindi, Tamil, etc.)
+- PII sanitization (Name, Phone, Email, ID masking)
+- Open-source LLM usage
+- Streamlit-based UI
+- VS Code as IDE
+- Beginner-friendly implementation
+
+2. TECHNOLOGY STACK (FINAL)
+---------------------------
+UI Framework:
+- Streamlit
+
+LLM:
+- Ollama (local LLM runner)
+- Model: llama3 or mistral
+
+RAG Components:
+- Sentence-Transformers (all-MiniLM-L6-v2)
+- FAISS (vector database)
+
+PDF Processing:
+- PyPDF
+
+Multilingual Translation:
+- deep-translator (GoogleTranslator)
+
+PII Sanitization:
+- Regex-based masking
+- presidio-analyzer (optional enhancement)
+
+Visualization:
+- Plotly
+
+IDE:
+- VS Code
+
+3. PROJECT FILE STRUCTURE
+-------------------------
+health_rag_analyzer/
+│
+├── app.py
+├── pdf_loader.py
+├── pii_sanitizer.py
+├── embeddings.py
+├── rag_qa.py
+├── translator.py
+├── dashboard.py
+├── sample_health_report.pdf
+├── requirements.txt
+├── README.md
+└── venv/
+
+4. IMPORTANT UPDATES & FIXES APPLIED
+-----------------------------------
+
+A. LangChain Import Fix
+- OLD (deprecated):
+  from langchain.text_splitter import RecursiveCharacterTextSplitter
+- NEW (correct):
+  from langchain_text_splitters import RecursiveCharacterTextSplitter
+- Installed:
+  pip install langchain-text-splitters
+
+B. Translation Library Conflict Fix
+- Removed: googletrans (httpx conflict)
+- Added: deep-translator
+- Reason: googletrans requires httpx==0.13.3 (incompatible)
+
+C. HTTPX Dependency Resolution
+- Final httpx version used: 0.28.1
+- Compatible with LangChain, HuggingFace, LangGraph
+
+D. Ollama Model Error Fix
+- Error: model 'llama3' not found (404)
+- Fix:
+  ollama pull llama3
+- Verified using:
+  ollama list
+
+E. Streamlit Command Not Found Fix
+- Root cause: venv not activated
+- Solution:
+  venv\Scripts\activate
+  python -m streamlit run app.py
+
+F. Streamlit Blank Screen Debugging
+- Used minimal UI version to verify rendering
+- Reintroduced modules step-by-step
+
+5. SAMPLE TEST DOCUMENT
+-----------------------
+- sample_health_report.pdf
+- Contains:
+  - Patient PII (to test masking)
+  - Blood tests
+  - Diagnosis
+  - Medications
+  - Doctor observations
+- Used to validate:
+  - RAG accuracy
+  - Multilingual queries
+  - Dashboard visuals
+
+6. VERIFIED FUNCTIONALITY CHECKLIST
+----------------------------------
+- PDF upload works
+- Text extraction works
+- PII masking works
+- Chunking & embeddings created
+- FAISS similarity search works
+- Ollama responds correctly
+- RAG answers limited to document
+- Multilingual queries translated
+- Streamlit UI renders properly
+
+7. RECOMMENDED RUN COMMANDS
+---------------------------
+Activate venv:
+venv\Scripts\activate
+
+Run Ollama:
+ollama serve
+
+Pull model:
+ollama pull llama3
+
+Run Streamlit:
+python -m streamlit run app.py
+
+8. NOTES
+--------
+- Always activate venv before running the app
+- Ollama runs outside Python environment
+- Avoid googletrans in modern LLM projects
+- Use exact model name as shown in `ollama list`
+
+
+
+What is the patient name?
+Does the patient have cancer?
+Is report mein glucose level kya hai?
+
+END OF DOCUMENT
